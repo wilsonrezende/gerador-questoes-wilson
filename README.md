@@ -45,3 +45,4 @@ if st.button("🔍 Gerar Questão"):
         questao = gerar_questao(banca, disciplina, tema)
         st.markdown("### 📄 Questão Gerada:")
         st.write(questao)
+
