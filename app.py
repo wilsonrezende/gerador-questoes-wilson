@@ -31,17 +31,18 @@ def gerar_questao(banca, disciplina, tema):
     Comentário: ...
     """
 
-    resposta = openai.ChatCompletion.create(
+    resposta = openai.chat.completions.create(
         model="gpt-4",
         messages=[{"role": "user", "content": prompt}],
         temperature=0.7,
         max_tokens=700
     )
 
-    return resposta.choices[0].message["content"]
+    return resposta.choices[0].message.content
 
 if st.button("🔍 Gerar Questão"):
     with st.spinner("Gerando questão com inteligência artificial..."):
         questao = gerar_questao(banca, disciplina, tema)
         st.markdown("### 📄 Questão Gerada:")
         st.write(questao)
+
