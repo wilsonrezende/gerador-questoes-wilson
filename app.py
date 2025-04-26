@@ -5,11 +5,13 @@ st.set_page_config(page_title="Gerador de Questões para Concursos", layout="cen
 
 st.title("📘 Gerador de Questões para Concursos Públicos")
 
+# Entrada do usuário
 banca = st.text_input("Banca examinadora", "FGV")
 disciplina = st.text_input("Disciplina", "Direito Constitucional")
 tema = st.text_input("Tema", "Princípios da Administração Pública")
 
-openai.api_key = st.secrets["openai_api_key"]
+# Conectando à OpenAI usando chave de projeto
+client = openai.OpenAI(api_key=st.secrets["openai_api_key"])
 
 def gerar_questao(banca, disciplina, tema):
     prompt = f"""
@@ -31,7 +33,7 @@ def gerar_questao(banca, disciplina, tema):
     Comentário: ...
     """
 
-    resposta = openai.chat.completions.create(
+    resposta = client.chat.completions.create(
         model="gpt-4",
         messages=[{"role": "user", "content": prompt}],
         temperature=0.7,
